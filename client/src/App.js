@@ -1,32 +1,48 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import moment from '../node_modules/moment'
+import DateTimePicker from 'react-datetime-picker';
+import Ingredient_List from "./components/Ingredient_List";
 
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = { apiResponse: "" };
+        this.state = {
+            apiResponse: [],
+            date: new Date()
+        };
     }
 
-    callAPI() {
-        fetch("http://localhost:9000/users")
+    onChange = date => {
+        this.callAPI(date)
+    }
+
+    callAPI(date = '') {
+        let use_by = moment(date).format('YYYY-MM-DD')
+        fetch(`http://localhost:9000/ingredients?use_by=${use_by}`)
             .then(res => res.text())
-            .then(res => this.setState({ apiResponse: res }))
+            .then(res => {
+                let apiResponse = JSON.parse(res)
+                this.setState({ apiResponse: apiResponse, date: date })
+                
+            })
             .catch(err => err);
     }
 
     componentDidMount() {
-        this.callAPI();
+        this.callAPI(this.state.date)
     }
 
     render() {
         return (
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h1 className="App-title">Welcome to React</h1>
-                </header>
-                <p className="App-intro">{this.state.apiResponse}</p>
+            <div>
+                <DateTimePicker
+                    onChange={(date) => this.onChange(date)}
+                    value={this.state.date}
+                    disableClock={true}
+                    format="dd/MM/y"
+                />
+                <Ingredient_List ingredient_on_date={this.state.apiResponse} ref="list" />
             </div>
         );
     }
