@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./App.css";
 import moment from '../node_modules/moment'
 import DateTimePicker from 'react-datetime-picker';
 import Ingredient_List from "./components/Ingredient_List";
@@ -24,7 +23,6 @@ class App extends Component {
             .then(res => {
                 let apiResponse = JSON.parse(res)
                 this.setState({ apiResponse: apiResponse, date: date })
-                
             })
             .catch(err => err);
     }
