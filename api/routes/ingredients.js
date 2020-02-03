@@ -31,11 +31,11 @@ const ingredient_data = [
         "use-by": "2020-01-22"
     },
     {
-        "title": "Sausage",
+        "title": "Hotdog Bun",
         "use-by": "2020-01-22"
     },
     {
-        "title": "Hotdog Bun",
+        "title": "Sausage",
         "use-by": "2020-01-22"
     },
     {
