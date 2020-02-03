@@ -20,7 +20,7 @@ class Ingredient_List extends Component {
             list_ingredient: [],
             recipes: []
         }
-    }    
+    }
 
     async updateList(isChecked, values) {
         let ingredient_arr = this.state.list_ingredient
@@ -36,6 +36,15 @@ class Ingredient_List extends Component {
 
     }
 
+    componentWillReceiveProps() {
+        if (this.props.is_ordered) {
+            this.setState({
+                list_ingredient: [],
+                recipes: []
+            })
+        }
+    }
+
     render() {
 
         const li_list = []
@@ -46,7 +55,7 @@ class Ingredient_List extends Component {
         for (let i = 0; i < ingredient_on_date.length; i++) {
             title = ingredient_on_date[i]['title']
             use_by = ingredient_on_date[i]['use-by']
-            li_list.push(<Ingredient_Item title={title} use_by={use_by} key={i} id_item={i} updateList={this.updateList.bind(this)} />)
+            li_list.push(<Ingredient_Item title={title} use_by={use_by} key={i} id_item={i} updateList={this.updateList.bind(this)} is_ordered={this.props.is_ordered} />)
         }
 
         return (

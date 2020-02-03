@@ -13,8 +13,14 @@ export class Ingredient_Item extends Component {
         await this.setState({ isChecked: !this.state.isChecked })
         let target = this.refs.checkbox
 
-        this.props.updateList(this.state.isChecked, target.title)
+        await this.props.updateList(this.state.isChecked, target.title)
 
+    }
+
+    componentWillReceiveProps() {
+        if (this.props.is_ordered) {
+            this.setState({ isChecked: false, })
+        }
     }
 
     render() {

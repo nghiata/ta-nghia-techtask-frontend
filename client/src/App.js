@@ -10,7 +10,7 @@ class App extends Component {
         this.state = {
             apiResponse: [],
             date: new Date(),
-            recipes: {},
+            recipes: {},            
         };
     }
 
@@ -24,7 +24,7 @@ class App extends Component {
             .then(res => res.text())
             .then(res => {
                 let apiResponse = JSON.parse(res)
-                this.setState({ apiResponse: apiResponse, date: date })
+                this.setState({ apiResponse: apiResponse, date: date, recipes: {} })
             })
             .catch(err => err);
     }
@@ -44,6 +44,10 @@ class App extends Component {
     render() {
 
         let recipe = this.state.recipes.length > 0 ? this.state.recipes[0]['title'] : ''
+        let isOrdered = false
+        if (recipe != '') {
+            isOrdered = true
+        }
 
         return (
             <div>
@@ -54,7 +58,7 @@ class App extends Component {
                     format="dd/MM/y"
                 />
                 <hr />
-                <Ingredient_List ingredient_on_date={this.state.apiResponse} ref="list" list_product={this.showRecipe.bind(this)} />
+                <Ingredient_List ingredient_on_date={this.state.apiResponse} ref="list" list_product={this.showRecipe.bind(this)} is_ordered={isOrdered} />
                 <hr />
                 <Recipes recipe={recipe} />
             </div>
