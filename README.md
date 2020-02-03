@@ -3,7 +3,12 @@ A set of recipes for lunch from all contents in the fridge
 
 ## Available Scripts
 
-In the client folder, you can run:
+In the **api** folder, you can run:
+
+### `npm install`
+### `npm start`
+
+In the **client** folder, you can run:
 
 ### `npm install`
 ### `npm start`
@@ -11,11 +16,6 @@ In the client folder, you can run:
 Main app:
 
 ### `localhost:3000`
-
-In the api folder, you can run:
-
-### `npm install`
-### `npm start`
 
 the ingredients in my fridge:
 
