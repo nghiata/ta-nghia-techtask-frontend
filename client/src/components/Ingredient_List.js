@@ -20,17 +20,7 @@ class Ingredient_List extends Component {
             list_ingredient: [],
             recipes: []
         }
-    }
-
-    componentWillMount() {
-        if (this.props.new_list) {
-            console.log('new_list: ', 'zzzzzzzzz')
-            this.setState({
-                list_ingredient: [],
-                recipes: []
-            })
-        }
-    }
+    }    
 
     async updateList(isChecked, values) {
         let ingredient_arr = this.state.list_ingredient
