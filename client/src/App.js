@@ -34,6 +34,7 @@ class App extends Component {
     }
 
     showRecipe(list_ingredient) {
+        list_ingredient.sort()
         fetch(`http://localhost:9000/recipes?ingredients=${list_ingredient.join(',')}`)
             .then(res => res.text())
             .then(res => this.setState({ recipes: JSON.parse(res) }))

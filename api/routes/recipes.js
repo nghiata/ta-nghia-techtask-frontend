@@ -34,9 +34,11 @@ const RECIPES_DETAIL = [
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    let ingredients = req.query.ingredients
+    let ingredients = req.query.ingredients    
     let recipes_data = RECIPES_DETAIL.filter((recipe, index) => {
-        return recipe.ingredients.join(',') == ingredients
+        let origin_ingredients = recipe.ingredients
+        origin_ingredients.sort()
+        return origin_ingredients.join(',') == ingredients
     })    
 
     res.send(recipes_data)
