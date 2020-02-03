@@ -15,8 +15,7 @@ class App extends Component {
     }
 
     onChange = async date => {
-        await this.callAPI(date)
-        console.log('target: ', this.constructor.name)
+        this.callAPI(date)
     }
 
     callAPI(date = '') {
@@ -34,8 +33,8 @@ class App extends Component {
         this.callAPI(this.state.date)
     }
 
-    async showRecipe(list_ingredient) {
-        await fetch(`http://localhost:9000/recipes?ingredients=${list_ingredient.join(',')}`)
+    showRecipe(list_ingredient) {
+        fetch(`http://localhost:9000/recipes?ingredients=${list_ingredient.join(',')}`)
             .then(res => res.text())
             .then(res => this.setState({ recipes: JSON.parse(res) }))
             .catch(err => err)
