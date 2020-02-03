@@ -1,23 +1,26 @@
 import React, { Component } from 'react'
-import moment from '../../node_modules/moment'
 
-let list_ingredient = []
 export class Ingredient_Item extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            list_ingredient: [],
-            recipes: {}
+            isChecked: false,
         }
     }
 
-    
+    async handleCheckbox() {
+        await this.setState({ isChecked: !this.state.isChecked })
+        let target = this.refs.checkbox
+
+        this.props.updateList(this.state.isChecked, target.title)
+
+    }
 
     render() {
         return (
             <div className="form-check">
-                <input className="form-check-input" type="checkbox" id={this.props.id_item} onChange={this.props.handleCheckbox} title={this.props.title} />
+                <input className="form-check-input" type="checkbox" ref="checkbox" checked={this.state.isChecked} id={this.props.id_item} onChange={this.handleCheckbox.bind(this)} title={this.props.title} />
                 <label className="form-check-label" htmlFor={this.props.id_item}>{this.props.title}</label>
             </div>
         )

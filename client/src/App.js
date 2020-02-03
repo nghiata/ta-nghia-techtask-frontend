@@ -2,13 +2,15 @@ import React, { Component } from "react";
 import moment from '../node_modules/moment'
 import DateTimePicker from 'react-datetime-picker';
 import Ingredient_List from "./components/Ingredient_List";
+import Recipes from './components/Recipes'
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
             apiResponse: [],
-            date: new Date()
+            date: new Date(),
+            recipes: {},
         };
     }
 
@@ -31,7 +33,17 @@ class App extends Component {
         this.callAPI(this.state.date)
     }
 
+    async showRecipe(list_ingredient) {
+        await fetch(`http://localhost:9000/recipes?ingredients=${list_ingredient.join(',')}`)
+            .then(res => res.text())
+            .then(res => this.setState({ recipes: JSON.parse(res) }))
+            .catch(err => err)
+    }
+
     render() {
+
+        let recipe = this.state.recipes.length > 0 ? this.state.recipes[0]['title'] : ''
+
         return (
             <div>
                 <DateTimePicker
@@ -40,7 +52,8 @@ class App extends Component {
                     disableClock={true}
                     format="dd/MM/y"
                 />
-                <Ingredient_List ingredient_on_date={this.state.apiResponse} ref="list" />
+                <Ingredient_List ingredient_on_date={this.state.apiResponse} ref="list" list_product={this.showRecipe.bind(this)} />
+                <Recipes recipe={recipe} />
             </div>
         );
     }
