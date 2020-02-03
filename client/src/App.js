@@ -14,8 +14,9 @@ class App extends Component {
         };
     }
 
-    onChange = date => {
-        this.callAPI(date)
+    onChange = async date => {
+        await this.callAPI(date)
+        console.log('target: ', this.constructor.name)
     }
 
     callAPI(date = '') {
@@ -52,7 +53,9 @@ class App extends Component {
                     disableClock={true}
                     format="dd/MM/y"
                 />
+                <hr />
                 <Ingredient_List ingredient_on_date={this.state.apiResponse} ref="list" list_product={this.showRecipe.bind(this)} />
+                <hr />
                 <Recipes recipe={recipe} />
             </div>
         );
